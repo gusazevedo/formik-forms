@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Formik, Field, Form } from "formik";
+import Schema from './schema';
+import "./App.css";
 
 function App() {
+
+  function onSubmit(values, actions) {
+    console.log("SUBMIT", values);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Formik
+        validationSchema={Schema}
+        onSubmit={onSubmit}
+        initialValues={{
+          name: "",
+          email: "",
+        }}
+        render={({ values, errors, touched }) => (
+          <Form>
+            <div>
+              <label>Name: </label>
+              <Field type="text" name="name" />
+              {errors.name && touched.name && 
+                <span>{errors.name}</span>
+              }
+            </div>
+            <div>
+              <label>Email: </label>
+              <Field type="text" name="email" />
+              {errors.email && touched.email && 
+                <span>{errors.email}</span>
+              }
+            </div>
+            <button type="submit">Enviar</button>
+          </Form>
+        )}
+      />
     </div>
   );
 }
