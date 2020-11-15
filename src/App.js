@@ -1,10 +1,9 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import Schema from './schema';
+import Schema from "./schema";
 import "./App.css";
 
 function App() {
-
   function onSubmit(values, actions) {
     console.log("SUBMIT", values);
   }
@@ -14,12 +13,9 @@ function App() {
       <Formik
         validationSchema={Schema}
         onSubmit={onSubmit}
-        initialValues={{
-          name: "",
-          email: "",
-        }}
-        render={({ values, errors, touched }) => (
+        render={({ values, isValid }) => (
           <Form>
+          <h2>Formulário de validação</h2>
             <div>
               <label>Name: </label>
               <Field type="text" name="name" />
@@ -30,7 +26,9 @@ function App() {
               <Field type="text" name="email" />
               <ErrorMessage name="email" />
             </div>
-            <button type="submit">Enviar</button>
+            <button type="submit" disabled={!isValid}>
+              Enviar
+            </button>
           </Form>
         )}
       />
