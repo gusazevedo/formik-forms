@@ -1,5 +1,5 @@
 import React from "react";
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import Schema from './schema';
 import "./App.css";
 
@@ -23,16 +23,12 @@ function App() {
             <div>
               <label>Name: </label>
               <Field type="text" name="name" />
-              {errors.name && touched.name && 
-                <span>{errors.name}</span>
-              }
+              <ErrorMessage name="name" />
             </div>
             <div>
               <label>Email: </label>
               <Field type="text" name="email" />
-              {errors.email && touched.email && 
-                <span>{errors.email}</span>
-              }
+              <ErrorMessage name="email" />
             </div>
             <button type="submit">Enviar</button>
           </Form>
